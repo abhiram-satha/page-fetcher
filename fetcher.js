@@ -13,10 +13,12 @@ const dataWebsite = commandArg[0];
 
 const fileSave = function () {
   request(dataWebsite, (error, response, body) => {
-    console.log('error:', error);
-    console.log('statusCode:', response && response.statusCode);
-    console.log('body:', body);
-  
+    //console.log('error:', error);
+    //console.log('statusCode:', response && response.statusCode);
+    //console.log('body:', body);
+    if (error >= 400 || error < 499) {
+      return console.log("File could not be saved");
+    } else {
     fs.writeFile(fileName, body, 'UTF8', (err) => {
       if (err) {
         return console.log('err');
@@ -26,6 +28,7 @@ const fileSave = function () {
         return console.log(`Downloaded and saved ${fileSizeInBytes} btyes to ${fileName}`);
       }
     })
+    }
   });
 }
 
